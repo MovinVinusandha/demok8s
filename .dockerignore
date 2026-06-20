@@ -16,3 +16,5 @@ public/build/
 *.log
 *~
 *.swp
+
+/kubernetes-manifests/

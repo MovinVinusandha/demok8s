@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demok8s-deployment
+  labels:
+    app: demok8s
+spec:
+  template:
+    metadata:
+      labels:
+        app: demok8s
+    spec:
+      containers:
+      - name: demok8s-container
+        image: demok8s:v1.0.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5173
+  selector:
+    matchLabels:
+      app: demok8s
