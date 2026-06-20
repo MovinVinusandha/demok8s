@@ -1,0 +1,18 @@
+# Minimal, project-specific ignores for this demo k8s project
+.git
+.gitignore
+.dockerignore
+.env
+.env.local
+.DS_Store
+
+# Node modules and build outputs
+node_modules/
+dist/
+build/
+public/build/
+
+# Logs and editor temp files
+*.log
+*~
+*.swp
