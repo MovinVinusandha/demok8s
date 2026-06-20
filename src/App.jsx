@@ -1,11 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+// ...existing code...
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [now, setNow] = useState(() => new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 60_000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const getGreeting = (date) => {
+    const h = date.getHours()
+    if (h >= 5 && h < 12) return 'Good morning'
+    if (h >= 12 && h < 17) return 'Good afternoon'
+    if (h >= 17 && h < 21) return 'Good evening'
+    return 'Good night'
+  }
+
+  const greeting = getGreeting(now)
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
   return (
     <>
@@ -16,16 +33,16 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Hello Movin</h1>
-          <p><code>v1.0.0</code></p>
+          <p className="eyebrow">DevOps Demo</p>
+          <h1 aria-live="polite">{greeting}, Movin</h1>
+          
+          <p>
+            A fresh Vite + React landing space for testing, shipping, and
+            showing off your next big idea.
+          </p>
+          <br/>
+          <p><code>v2.0.0</code></p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
       </section>
 
       <div className="ticks"></div>
