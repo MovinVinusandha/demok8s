@@ -5,37 +5,36 @@ pipeline {
         string(name: 'Version', defaultValue: 'latest', description: 'Version to build')
     }
 
+    environment {
+        DOCKERHUB_REPO = 'movinvinusandha/testk8s'
+        IMAGE_TAG = "${params.Version}"
+    }
+
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building...'
-                echo "build ${params.Version}..."
+                sh "docker build -t ${DOCKERHUB_REPO}:${IMAGE_TAG} ."
             }
         }
-        stage('Test') {
+        stage('Push to Docker Hub') {
             steps {
-                echo 'Testing...'
-                echo "testing ${params.Version}..."
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-                echo "deploying ${params.Version}..."
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    sh 'echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin'
+                    sh "docker push ${DOCKERHUB_REPO}:${IMAGE_TAG}"
+                }
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning up...'
-            sh 'echo "Simulating cleanup process..."'
+            sh 'docker logout || true'
         }
         success {
-            echo 'Build succeeded!'
+            echo 'Pipeline completed successfully'
         }
         failure {
-            echo 'Build failed!'    
+            echo 'Pipeline failed'
         }
     }
 }
