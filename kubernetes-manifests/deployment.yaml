@@ -13,9 +13,14 @@ spec:
     spec:
       containers:
       - name: demok8s-container
-        image: movinvinusandha/testk8s:v2.0.0
+        image: movinvinusandha/testk8s:v3.0.0
         ports:
         - containerPort: 5173
+        env:
+        - name: VITE_USERNAME
+          value: "vite.movin.k8s" 
+        - name: VITE_PASSWORD
+          value: "vite.password.k8s"
   selector:
     matchLabels:
       app: demok8s
