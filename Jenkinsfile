@@ -1,23 +1,27 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'Version', defaultValue: 'latest', description: 'Version to build')
+    }
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'echo "Simulating build process..."'
+                echo "build ${params.Version}..."
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'echo "Simulating test process..."'
+                echo "testing ${params.Version}..."
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'echo "Simulating deployment process..."'
+                echo "deploying ${params.Version}..."
             }
         }
     }
