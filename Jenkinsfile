@@ -21,4 +21,17 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            sh 'echo "Simulating cleanup process..."'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'    
+        }
+    }
 }
