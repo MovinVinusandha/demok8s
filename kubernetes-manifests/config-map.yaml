@@ -4,4 +4,3 @@ metadata:
   name: demok8s-configmap
 data:
   VITE_USERNAME: movin.k8s
-  VITE_PASSWORD: 456.k8s

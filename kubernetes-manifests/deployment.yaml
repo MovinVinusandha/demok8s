@@ -19,6 +19,8 @@ spec:
         envFrom:
           - configMapRef:
               name: demok8s-configmap
+          - secretRef:
+              name: demok8s-secret
   selector:
     matchLabels:
       app: demok8s
