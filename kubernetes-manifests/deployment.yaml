@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: demok8s-container
-        image: movinvinusandha/testk8s:v3.0.0
+        image: movinvinusandha/testk8s:v3.1.0
         ports:
         - containerPort: 5173
         env:
