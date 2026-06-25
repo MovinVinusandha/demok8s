@@ -16,11 +16,9 @@ spec:
         image: movinvinusandha/testk8s:v3.1.0
         ports:
         - containerPort: 5173
-        env:
-        - name: VITE_USERNAME
-          value: "vite.movin.k8s" 
-        - name: VITE_PASSWORD
-          value: "vite.password.k8s"
+        envFrom:
+          - configMapRef:
+              name: demok8s-configmap
   selector:
     matchLabels:
       app: demok8s
