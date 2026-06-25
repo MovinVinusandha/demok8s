@@ -46,7 +46,7 @@ function App() {
             showing off your next big idea.
           </p>
           <br />
-          <p><code>v3.0.0</code></p>
+          <p><code>v3.1.0</code></p>
           <br/>
           <p>{now.toLocaleString()}</p>
         </div>
