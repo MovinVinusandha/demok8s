@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: demok8s-container
-        image: movinvinusandha/testk8s:v3.1.0
+        image: movinvinusandha/testk8s:v4.0.0
         ports:
         - containerPort: 5173
         envFrom:
@@ -21,6 +21,14 @@ spec:
               name: demok8s-configmap
           - secretRef:
               name: demok8s-secret
+        volumeMounts:
+          - name: k8s-data-volume
+            mountPath: /app/data
+      volumes:
+      - name: k8s-data-volume
+        hostPath:
+          path: /k8s-data
+          type: DirectoryOrCreate
   selector:
     matchLabels:
       app: demok8s
