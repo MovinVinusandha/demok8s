@@ -26,9 +26,8 @@ spec:
             mountPath: /app/data
       volumes:
       - name: k8s-data-volume
-        hostPath:
-          path: /k8s-data
-          type: DirectoryOrCreate
+        persistentVolumeClaim:
+          claimName: k8s-persistent-volume-claim
   selector:
     matchLabels:
       app: demok8s
