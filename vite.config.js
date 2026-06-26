@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react'
 import fs from 'fs'
 import path from 'path'
 
-// Path where the text file will be saved
-const filePath = path.resolve(__dirname, 'saved_text.txt');
+// Define the data directory path and the text file path
+const dataDir = path.resolve(__dirname, 'data');
+const filePath = path.join(dataDir, 'saved_text.txt');
 
 export default defineConfig({
   plugins: [
@@ -20,6 +21,12 @@ export default defineConfig({
             req.on('end', () => {
               try {
                 const { text } = JSON.parse(body);
+                
+                // Ensure the "data" directory exists before writing the file
+                if (!fs.existsSync(dataDir)) {
+                  fs.mkdirSync(dataDir, { recursive: true });
+                }
+
                 fs.writeFileSync(filePath, text || '', 'utf-8');
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: true }));
